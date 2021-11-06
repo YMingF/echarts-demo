@@ -55,3 +55,8 @@ loadMoreButton.addEventListener('click', () => {
   }, 1000)
   //用setOption只改你要改的部分
 })
+myChart.on('click', (e) => {
+  console.log(e.dataIndex)//获取到数据索引,即第几个
+  console.log(e.data)//获取到具体的值
+  console.log(e.name)//获取到对应横轴信息
+})
