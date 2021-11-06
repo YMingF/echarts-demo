@@ -3,7 +3,8 @@ let main = document.getElementById('main')
 let myChart = echarts.init(main)
 const loadMoreButton = document.getElementById('loadMore')
 let n = 0
-let m=0
+let m = 0
+
 function createKey() {
   n += 1
   return `1-${n}`
@@ -33,16 +34,24 @@ myChart.setOption({
     ]
   }
 )
+let isLoading = false
 loadMoreButton.addEventListener('click', () => {
-  xData=[...xData,createKey()]
-  yValue=[...yValue, createValue()]
+  if (isLoading) {return}
+  isLoading = true
+  myChart.showLoading()
+  setTimeout(() => {
+    xData = [...xData, createKey()]
+    yValue = [...yValue, createValue()]
+    myChart.setOption({
+      xAxis: {
+        data: xData
+      },
+      series: [
+        {data: yValue}
+      ]
+    })
+    myChart.hideLoading()
+    isLoading = false
+  }, 1000)
   //用setOption只改你要改的部分
-  myChart.setOption({
-    xAxis: {
-      data: xData
-    },
-    series: [
-      {data: yValue}
-    ]
-  })
 })
