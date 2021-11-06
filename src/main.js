@@ -14,8 +14,8 @@ function createValue() {
   return m
 }
 
-const xData = [createKey(), createKey(), createKey()] //存储横坐标信息
-const yValue = [createValue(), createValue(), createValue()] //存储纵坐标值
+let xData = [createKey(), createKey(), createKey()] //存储横坐标信息
+let yValue = [createValue(), createValue(), createValue()] //存储纵坐标值
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption({
     xAxis: {
@@ -34,13 +34,15 @@ myChart.setOption({
   }
 )
 loadMoreButton.addEventListener('click', () => {
+  xData=[...xData,createKey()]
+  yValue=[...yValue, createValue()]
   //用setOption只改你要改的部分
   myChart.setOption({
     xAxis: {
-      data: [...xData, createKey()]
+      data: xData
     },
     series: [
-      {data: [...yValue, createValue()]}
+      {data: yValue}
     ]
   })
 })
