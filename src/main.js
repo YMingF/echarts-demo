@@ -1,7 +1,11 @@
 const echarts = require('echarts')
 let main = document.getElementById('main')
-let myChart = echarts.init(main)
 const loadMoreButton = document.getElementById('loadMore')
+const width = document.documentElement.clientWidth //手机限制的就是在宽度
+main.style.width = `${width}px`
+main.style.height = `${width * 1.2}px`
+let myChart = echarts.init(main)
+//
 let n = 0
 let m = 0
 
