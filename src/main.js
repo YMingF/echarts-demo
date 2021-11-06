@@ -23,17 +23,33 @@ let xData = [createKey(), createKey(), createKey()] //存储横坐标信息
 let yValue = [createValue(), createValue(), createValue()] //存储纵坐标值
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption({
-    xAxis: {
-      type: 'category',
-      data: xData
-    },
-    yAxis: {
-      type: 'value'
-    },
-    series: [
-      {
+    baseOption: {
+      tooltip: {
+        show: true
+      },
+      xAxis: {
+        type: 'category',
+        data: xData
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
         data: yValue,
         type: 'line'
+      }
+      ]
+    },
+    media: [
+      {
+        query: {
+          maxWidth: 500 //最大宽度为500,即很有可能是手机设备
+        },
+        option: { //option记得别漏
+          tooltip: {
+            show: false
+          },
+        }
       }
     ]
   }
