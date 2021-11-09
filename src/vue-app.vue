@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3>在vue里使用echarts</h3>
     <vue-echarts :option="option" :loading="loading"></vue-echarts>
     <button @click="loadMore">点击加载更多</button>
   </div>
@@ -13,43 +12,48 @@ export default {
   data() {
     return {
       loading: false,
-      option: {
-        baseOption: {
-          tooltip: {
-            show: true
-          },
-          xAxis: {
-            type: 'category',
-            data: ['1', '2', '3']
-          },
-          yAxis: {
-            type: 'value'
-          },
-          series: [{
-            data: [10, 20, 30],
-            type: 'line'
-          }
-          ]
+      n: 3,
+      m: 30,
+      xData: ['1', '2', '3'],
+      yValue: [10, 20, 30],
+    }
+  },
+  computed: {
+    option() {
+      return {
+        tooltip: {
+          show: true
+        },
+        xAxis: {
+          type: 'category',
+          data: this.xData
+        },
+        yAxis: {},
+        series: [{
+          data: this.yValue,
+          type: 'bar'
         }
+        ]
       }
     }
   },
   components: {VueEcharts},
   methods: {
     loadMore() {
+      if (this.loading) return
       this.loading = true
+      this.xData = [...this.xData, this.createId()]
+      this.yValue = [...this.yValue, this.createValue()]
       setTimeout(() => {
-        this.option = {
-          xAxis: {
-            data: ['1', '2', '3', '4']
-          },
-          series: [
-            {data: [10, 20, 30, 40]}
-          ]
-        }
         this.loading = false
-      }, 1000)
-    }
+      }, 500)
+    },
+    createId() {
+      return this.n += 1
+    },
+    createValue() {
+      return this.m += 10
+    },
   }
 }
 </script>

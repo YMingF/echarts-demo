@@ -1,6 +1,5 @@
 <template>
   <div ref="container">
-    vue echarts
   </div>
 </template>
 
@@ -11,11 +10,12 @@ export default {
   props: ['option', 'loading'],
   mounted() {
     //获取到这个div
-    console.log(this.$refs.container)
+    let main = this.$refs.container
     const width = document.documentElement.clientWidth
-    this.$refs.container.style.width = `${width - 20}px`
-    this.$refs.container.style.height = `${(width - 20) * 1.2}px`
-    this.chart = echarts.init(this.$refs.container, 'dark')
+    const height = document.documentElement.clientHeight
+    main.style.width = `${width}px`
+    main.style.height = `${height}px`
+    this.chart = echarts.init(main, 'dark')
     this.chart.setOption(this.option)
   },
   watch: {
@@ -23,11 +23,7 @@ export default {
       this.chart.setOption(this.option)
     },
     loading() {
-      if (this.loading) {
-        this.chart.showLoading()
-      } else {
-        this.chart.hideLoading()
-      }
+      this.loading?this.chart.showLoading():this.chart.hideLoading()
     }
   }
 }
